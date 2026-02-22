@@ -143,7 +143,9 @@ fun generateDatapackFile(datapack: Datapack, outputDir: Path, packageNameOverrid
 			} else {
 				// Multiple namespaces - create intermediate objects for each namespace
 				allNamespaces.forEach { namespace ->
-					val namespaceObjectName = namespace.pascalCase()
+					val namespaceObjectName = namespace
+						.replace(".", "_")
+						.pascalCase()
 					val namespaceObject = TypeSpec.objectBuilder(namespaceObjectName)
 						.addModifiers(KModifier.DATA)
 						.addProperty(
